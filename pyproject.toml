@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carot-align"
+version = "0.1.0.dev0"
+description = "Cross-lingual alignment of language-model representations with LEACE and optimal transport"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Taisei Yamamoto", email = "yamamoto-taisei534@g.ecc.u-tokyo.ac.jp"}]
+dependencies = [
+  "torch>=2.2",
+  "POT>=0.9.5",
+  "concept-erasure>=0.2.4",
+]
+
+[project.scripts]
+carot-preprocess = "carot.experiments.preprocess:main"
+carot-steer = "carot.experiments.steering:main"
+carot-train = "carot.experiments.training:main"
+carot-evaluate = "carot.experiments.evaluate:main"
+
+[project.optional-dependencies]
+experiments = [
+  "accelerate>=1.2",
+  "datasets>=3",
+  "fasttext-numpy2>=0.10.4",
+  "huggingface-hub>=0.27",
+  "peft>=0.14",
+  "transformers>=4.48",
+  "pyyaml>=6",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.setuptools]
+packages = ["carot", "carot.experiments", "carot.experiments.data"]
+package-dir = {carot = "src/carot", "carot.experiments" = "experiments"}
+
+[tool.setuptools.package-data]
+"carot.experiments" = ["configs/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

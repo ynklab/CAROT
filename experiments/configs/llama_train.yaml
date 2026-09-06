@@ -1,0 +1,46 @@
+seed: 42
+model: meta-llama/Llama-3.1-8B
+artifact: outputs/Llama-3.1-8B/calibration/artifacts/layer_12.pt
+layer: 12
+source_language: English
+target_languages:
+  - French
+  - Spanish (Latin American)
+  - Mandarin Chinese (Standard Beijing)
+  - Japanese
+lm_dataset: aya_dataset
+lm_split: train
+alignment_sources:
+  - name: wmtpp
+    split: train
+    max_samples_per_language: 1000
+    max_tokens: 64
+  - name: ntrex
+    split: test
+    max_samples_per_language: 1000
+    max_tokens: 64
+epochs: 1
+batch_size: 16
+max_instruction_samples_per_language: 2000
+max_instruction_tokens: 500
+learning_rate: 5.0e-5
+warmup_steps: 300
+weight_decay: 0.01
+gradient_clip: 1.0
+gradient_checkpointing: true
+alignment_interval: 1
+alignment_fraction: 0.5
+logging_steps: 50
+lora:
+  rank: 64
+  alpha: 64
+  dropout: 0.05
+  target_modules: all-linear
+  modules_to_save: [embed_tokens, lm_head]
+ot:
+  regularization: 0.05
+  marginal_relaxation: 0.5
+  perplexity_threshold: 0.25
+  max_iterations: 1000
+output_dir: outputs/Llama-3.1-8B/training/carot
+

@@ -1,0 +1,55 @@
+# Values stated in the paper/appendix. Dataset and model revisions still need pins.
+seed: 42
+
+ot:
+  regularization: 0.05
+  marginal_relaxation: 0.5
+  max_iterations: 1000
+
+models:
+  llama:
+    steering_model: meta-llama/Llama-3.1-8B-Instruct
+    training_model: meta-llama/Llama-3.1-8B
+    carot_layer: 12
+    perplexity_threshold: 0.25
+    learning_rate:
+      carot: 5.0e-5
+      lm: 1.0e-5
+      midalign: 5.0e-5
+    midalign_layer: 16
+  gemma:
+    steering_model: google/gemma-3-4b-it
+    training_model: google/gemma-3-4b-pt
+    carot_layer: 6
+    perplexity_threshold: 0.5
+    learning_rate:
+      carot: 1.0e-4
+      lm: 1.0e-5
+      midalign: 1.0e-4
+    midalign_layer: 17
+  qwen:
+    steering_model: Qwen/Qwen3-4B
+    training_model: Qwen/Qwen3-4B-Base
+    carot_layer: 9
+    perplexity_threshold: 0.75
+    learning_rate:
+      carot: 1.0e-4
+      lm: 5.0e-5
+      midalign: 1.0e-4
+    midalign_layer: 18
+
+training:
+  epochs: 1
+  batch_size: 16
+  warmup_steps: 300
+  weight_decay: 0.01
+  max_instruction_samples_per_language: 2000
+  max_instruction_tokens: 500
+  max_parallel_tokens: 64
+  alignment_fraction: 0.5
+  lora:
+    rank: 64
+    alpha: 64
+    dropout: 0.05
+  midalign_temperature: 0.1
+

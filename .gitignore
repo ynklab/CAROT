@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+build/
+dist/
+artifacts/
+outputs/
+wandb/
+log/
+jobs/
+
+# downloaded datasets
+NTREX/
+KLAR-CLC/
+
+# env files
+.env

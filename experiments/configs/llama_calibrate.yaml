@@ -1,0 +1,31 @@
+seed: 42
+model: meta-llama/Llama-3.1-8B-Instruct
+layers: [12]
+languages:
+  - English
+  - French
+  - Spanish (Latin American)
+  - Mandarin Chinese (Standard Beijing)
+  - Russian
+  - Japanese
+  - Greek
+  - Korean
+  - Hebrew
+  - Vietnamese
+  - Bengali
+  - Telugu
+sources:
+  - name: wmtpp
+    split: train
+    max_samples_per_language: 1280
+    max_tokens: 64
+    batch_size: 16
+  - name: ntrex
+    split: test
+    max_samples_per_language: 1280
+    max_tokens: 64
+    batch_size: 16
+fit_device: cpu
+eigenvalue_relative_threshold: 1.0e-5
+output_dir: outputs/Llama-3.1-8B-Instruct/calibration
+

@@ -1,0 +1,14 @@
+seed: 42
+model: meta-llama/Llama-3.1-8B-Instruct
+dataset: klar
+split: test
+category: continent
+source_language: English
+target_languages:
+  - French
+  - Japanese
+batch_size: 16
+max_new_tokens: 50
+language_fidelity: true
+output_dir: outputs/Llama-3.1-8B-Instruct/evaluation/klar_test
+
