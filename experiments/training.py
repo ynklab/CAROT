@@ -155,6 +155,7 @@ def run(config: dict) -> None:
             optimizer_step(model, optimizer, scheduler, config.get("gradient_clip", 1.0))
             global_lm_step += 1
 
+            alignment_loss = None
             if (
                 global_lm_step % interval == 0
                 and global_lm_step <= int(lm_steps * alignment_fraction)
@@ -196,8 +197,9 @@ def run(config: dict) -> None:
                 optimizer_step(model, optimizer, scheduler, config.get("gradient_clip", 1.0))
             if global_lm_step % config.get("logging_steps", 50) == 0:
                 LOG.info(
-                    "epoch=%d lm_step=%d/%d lm_loss=%.5f lr=%.2e",
-                    epoch + 1, global_lm_step, lm_steps, loss.item(), scheduler.get_last_lr()[0],
+                    "epoch=%d lm_step=%d/%d lm_loss=%.5f alignment_loss=%.5f lr=%.2e",
+                    epoch + 1, global_lm_step, lm_steps, loss.item(),
+                    alignment_loss.item() if alignment_loss is not None else 0.0, scheduler.get_last_lr()[0],
                 )
 
         checkpoint = output_dir / f"epoch_{epoch + 1}"

@@ -2,9 +2,9 @@ seed: 42
 model: meta-llama/Llama-3.1-8B-Instruct
 artifact: outputs/Llama-3.1-8B-Instruct/calibration/artifacts/layer_12.pt
 layer: 12
-dataset: gmmlu
+dataset: klar
 split: test
-category: all
+category: continent
 source_language: English
 target_languages:
   - French
